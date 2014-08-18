@@ -131,7 +131,7 @@ SectionService.prototype.updateNavMap = function(section, cb) {
     	}
 
     	//create it if not already done
-    	var mapWasNull = sectionMap == null;
+    	var mapWasNull = sectionMap === null;
         if(mapWasNull) {
         	sectionMap = [];
         }
@@ -147,10 +147,23 @@ SectionService.prototype.updateNavMap = function(section, cb) {
         else {//set as child of parent in map
 
         	for (var i = 0; i < sectionMap.length; i++) {
-                if (sectionMap[i].uid == section.parent) {
-                    sectionMap[i].children.push({uid: sid});
+                if(sectionMap[i].uid == section.parent) {
+                    sectionMap[i].children.push({uid: sid, children: []});
                     break;
                 }
+
+				var subchildMatch = false;
+				for(var j = 0; j < sectionMap[i].children.length; j++) {
+					if(sectionMap[i].children[j].uid == section.parent) {
+						sectionMap[i].children[j].children.push({uid: sid});
+						subchildMatch = true;
+						break;
+					}
+				}
+
+				if(subchildMatch) {
+					break;
+				}
             }
         }
 
@@ -244,7 +257,7 @@ SectionService.prototype.getParentSelectList = function(currItem, cb) {
 
 SectionService.trimForType = function(navItem) {
 	if (navItem.type === 'container') {
-		navItem.parent = null;
+		//navItem.parent = null;
 		navItem.url    = null;
 		navItem.editor = null;
 		navItem.item   = null;

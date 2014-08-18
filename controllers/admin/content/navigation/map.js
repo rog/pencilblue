@@ -73,36 +73,44 @@ NavigationMap.prototype.render = function(cb) {
 };
 
 NavigationMap.getOrderedSections = function(sections, sectionMap) {
+	for(var i = 0; i < sections.length; i++) {
+		for(var j = 0; j < sectionMap.length; j++) {
+			var sectionMatch = false;
+			if(sectionMap[j].children) {
+				for(var s = 0; s < sectionMap[j].children.length; s++) {
+					if(sectionMap[j].children[s].children) {
+						for(var n = 0; n < sectionMap[j].children[s].children.length; n++) {
+							if(sectionMap[j].children[s].children[n].uid === sections[i]._id.toString()) {
+								sectionMap[j].children[s].children[n] = sections[i];
+								sectionMatch = true;
+								break;
+							}
+						}
+					}
+					if(sectionMatch) {
+						break;
+					}
+					if(sectionMap[j].children[s].uid === sections[i]._id.toString()) {
+						sections[i].children = sectionMap[j].children[s].children;
+						sectionMap[j].children[s] = sections[i];
+						sectionMatch = true;
+						break;
+					}
+				}
+			}
+			if(sectionMatch) {
+				break;
+			}
+			if(sectionMap[j].uid === sections[i]._id.toString()) {
+				sections[i].children = sectionMap[j].children;
+				sectionMap[j] = sections[i];
+				sectionMatch = true;
+				break;
+			}
+		}
+	}
 
-	var orderedSections = [];
-    for(var i = 0; i < sectionMap.length; i++) {
-
-    	var parentSection = null;
-        for(var j = 0; j < sections.length; j++) {
-            if(sectionMap[i].uid == sections[j]._id) {
-                parentSection          = sections[j];
-                parentSection.children = [];
-                break;
-            }
-        }
-
-        if(!parentSection) {
-            continue;
-        }
-
-        for(var o = 0; o < sectionMap[i].children.length; o++) {
-            for(j = 0; j < sections.length; j++) {
-                if(sectionMap[i].children[o].uid == sections[j]._id) {
-                    parentSection.children.push(sections[j]);
-                    break;
-                }
-            }
-        }
-
-        orderedSections.push(parentSection);
-    }
-
-    return orderedSections;
+	return sectionMap;
 };
 
 NavigationMap.getSubNavItems = function(key, ls, data) {

@@ -15,8 +15,8 @@
                     </a>
                 </h5>
             </div>
-            <div class="panel-body" ng-hide="section.children.length == 0" style="padding: 1em 0 0 0">
-                <div id="subsection_{{child._id}}" class="col-md-3 subsection" ng-repeat="child in section.children track by child._id">
+            <div class="panel-body" ng-hide="!section.children.length" style="padding: 1em 0 0 0">
+                <div id="subsection_{{child._id}}" class="col-md-4 subsection clearfix" ng-repeat="child in section.children track by child._id">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h5>
@@ -28,6 +28,23 @@
                                     <i class="fa fa-times fa-fw" style="float: right;"></i>&nbsp;&nbsp;
                                 </a>
                             </h5>
+                        </div>
+                    </div>
+                    <div class="panel-body" ng-hide="!child.children.length" style="padding: 1em 0 0 0">
+                        <div id="subsection_{{subchild._id}}" class="col-md-12 subsection clearfix" ng-repeat="subchild in child.children track by subchild._id">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h5>
+                                        <a href="/admin/content/navigation/edit_item/{{subchild._id}}">
+                                            <i class="fa fa-fw fa-{{icons[subchild.type]}}" style="float: left;"></i>&nbsp;&nbsp;
+                                            {{subchild.name}}
+                                        </a>
+                                        <a href="javascript:confirmDeleteSection('{{subchild._id}}', '{{subchild.name}}')">
+                                            <i class="fa fa-times fa-fw" style="float: right;"></i>&nbsp;&nbsp;
+                                        </a>
+                                    </h5>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
