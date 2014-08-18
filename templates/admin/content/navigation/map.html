@@ -6,7 +6,7 @@
         <div id="section_{{section._id}}" class="panel panel-info section" ng-repeat="section in sections track by section._id" ng-cloak>
             <div class="panel-heading">
                 <h5>
-                    <a href="/admin/content/sections/edit_section/{{section._id}}">
+                    <a href="/admin/content/navigation/edit_item/{{section._id}}">
                         <i class="fa fa-fw fa-{{icons[section.type]}}" style="float: left;"></i>&nbsp;&nbsp;
                         {{section.name}}
                     </a>
@@ -20,7 +20,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h5>
-                                <a href="/admin/content/sections/edit_section/{{child._id}}">
+                                <a href="/admin/content/navigation/edit_item/{{child._id}}">
                                     <i class="fa fa-fw fa-{{icons[child.type]}}" style="float: left;"></i>&nbsp;&nbsp;
                                     {{child.name}}
                                 </a>
@@ -34,9 +34,9 @@
             </div>
         </div>
     </div>
-    <form id="section_map_form" method="post" action="^site_root^/actions/admin/content/sections/section_map">
+    <form id="section_map_form" method="post" action="^site_root^/actions/admin/content/navigation/map">
         <fieldset>
-            <button type="button" class="btn btn-default" onclick="window.location = '^site_root^/admin/content/sections';">
+            <button type="button" class="btn btn-default" onclick="window.location = '^site_root^/admin/content/navigation';">
                 <i class="fa fa-ban"></i>&nbsp;^loc_CANCEL^
             </button>
             <button type="button" class="btn btn-primary" onclick="buildSectionMap()">
@@ -61,6 +61,6 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="/js/admin/content/sections/section_map.js"></script>
+    <script type="text/javascript" src="/js/admin/content/navigation/map.js"></script>
 </div>
 ^tmp_admin=footer^

@@ -16,21 +16,21 @@
 */
 
 /**
- * Edits a section
+ * Edits a navigation item
  */
 
 //dependencies
 var BaseController = pb.BaseController;
 var FormController = pb.FormController;
 
-function EditSectionPostController(){
+function EditNavItemPostController(){
 	this.wasContainer = false;
 }
 
 //inheritance
-util.inherits(EditSectionPostController, FormController);
+util.inherits(EditNavItemPostController, FormController);
 
-EditSectionPostController.prototype.onPostParamsRetrieved = function(post, cb){
+EditNavItemPostController.prototype.onPostParamsRetrieved = function(post, cb){
 	var self = this;
 
 	//load object
@@ -59,7 +59,7 @@ EditSectionPostController.prototype.onPostParamsRetrieved = function(post, cb){
 			}
 			else if (validationErrors.length > 0) {
 				self.setFormFieldValues(post);
-				var errMsg = EditSectionPostController.getHtmlErrorMsg(validationErrors);
+				var errMsg = EditNavItemPostController.getHtmlErrorMsg(validationErrors);
 				var redirect = self.getFormLocation();
 				self.formError(errMsg, redirect, cb);
 				return;
@@ -86,7 +86,7 @@ EditSectionPostController.prototype.onPostParamsRetrieved = function(post, cb){
 
                 		//finally do the callback
                 		self.session.success = self.getSuccessMessage(navItem);
-                    	self.redirect('/admin/content/sections/section_map', cb);
+                    	self.redirect('/admin/content/navigation/map', cb);
                 	});
             	});
             });
@@ -94,20 +94,20 @@ EditSectionPostController.prototype.onPostParamsRetrieved = function(post, cb){
 	});
 };
 
-EditSectionPostController.prototype.deleteOrphans = function(navItem, cb) {
+EditNavItemPostController.prototype.deleteOrphans = function(navItem, cb) {
 	var service = new pb.SectionService();
 	service.deleteChildren(navItem._id, cb);
 };
 
-EditSectionPostController.prototype.getSuccessMessage = function(navItem) {
+EditNavItemPostController.prototype.getSuccessMessage = function(navItem) {
 	return navItem.name + ' ' + this.ls.get('EDITED');
 };
 
-EditSectionPostController.prototype.getFormLocation = function() {
-	return pb.UrlService.urlJoin('/admin/content/sections/edit_section', this.pathVars.id);
+EditNavItemPostController.prototype.getFormLocation = function() {
+	return pb.UrlService.urlJoin('/admin/content/navigation/new_item', this.pathVars.id);
 };
 
-EditSectionPostController.prototype.getObject = function(post, cb) {
+EditNavItemPostController.prototype.getObject = function(post, cb) {
 	var self = this;
 	var dao  = new pb.DAO();
 	dao.loadById(this.pathVars.id, 'section', function(err, navItem) {
@@ -130,12 +130,12 @@ EditSectionPostController.prototype.getObject = function(post, cb) {
 	});
 };
 
-EditSectionPostController.prototype.checkForNavMapUpdate = function(navItem, cb) {
+EditNavItemPostController.prototype.checkForNavMapUpdate = function(navItem, cb) {
 	var service = new pb.SectionService();
 	service.updateNavMap(navItem, cb);
 };
 
-EditSectionPostController.getHtmlErrorMsg = function(validationErrors) {
+EditNavItemPostController.getHtmlErrorMsg = function(validationErrors) {
 	var html = '';
 	for (var i = 0; i < validationErrors.length; i++) {
 		if (i > 0) {
@@ -147,4 +147,4 @@ EditSectionPostController.getHtmlErrorMsg = function(validationErrors) {
 };
 
 //exports
-module.exports = EditSectionPostController;
+module.exports = EditNavItemPostController;

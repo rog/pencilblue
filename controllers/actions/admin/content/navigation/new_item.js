@@ -21,26 +21,26 @@
 
 
 //dependencies
-var EditSectionPostController = require('./edit_section.js');
+var EditSectionPostController = require('./edit_item.js');
 
-function NewSectionPostController(){}
+function NewNavItemPostController(){}
 
 //inheritance
-util.inherits(NewSectionPostController, EditSectionPostController);
+util.inherits(NewNavItemPostController, EditSectionPostController);
 
 
-NewSectionPostController.prototype.getObject = function(post, cb) {
+NewNavItemPostController.prototype.getObject = function(post, cb) {
 	var navItem = pb.DocumentCreator.create('section', post, ['keywords'], ['parent']);
 	cb(null, navItem);
 };
 
-NewSectionPostController.prototype.getSuccessMessage = function(navItem) {
+NewNavItemPostController.prototype.getSuccessMessage = function(navItem) {
 	return navItem.name + ' ' + this.ls.get('CREATED');
 };
 
-NewSectionPostController.prototype.getFormLocation = function() {
-	return '/admin/content/sections/new_section';
+NewNavItemPostController.prototype.getFormLocation = function() {
+	return '/admin/content/navigation/new_item';
 };
 
 //exports
-module.exports = NewSectionPostController;
+module.exports = NewNavItemPostController;

@@ -78,6 +78,6 @@ function saveSectionMap(sectionMap)
 function confirmDeleteSection(sectionID, sectionName)
 {
     $('#delete_name').html(sectionName);
-    $('#delete_button').attr('onclick', 'window.location = "/actions/admin/content/sections/delete_section/' + sectionID + '"');
+    $('#delete_button').attr('onclick', 'window.location = "/actions/admin/content/navigation/delete_item/' + sectionID + '"');
     $('#confirm_delete_modal').modal({backdrop: 'static', keyboard: true});
 }

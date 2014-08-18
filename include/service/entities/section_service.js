@@ -31,10 +31,10 @@ var VALID_TYPES = {
 SectionService.getPillNavOptions = function(activePill) {
     return [
         {
-            name: 'new_section',
+            name: 'new_item',
             title: '',
             icon: 'plus',
-            href: '/admin/content/sections/new_section'
+            href: '/admin/content/navigation/new_item'
         }
     ];
 };

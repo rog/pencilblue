@@ -19,36 +19,36 @@
  * Updates the navigation
  */
 
-function SectionMap(){}
+function NavigationMap(){}
 
 //inheritance
-util.inherits(SectionMap, pb.FormController);
+util.inherits(NavigationMap, pb.FormController);
 
-SectionMap.prototype.onPostParamsRetrieved = function(post, cb) {
+NavigationMap.prototype.onPostParamsRetrieved = function(post, cb) {
 	var self = this;
 
 	var message = this.hasRequiredParams(post, ['map']);
 	if(message) {
-        this.formError(message, '/admin/content/sections/section_map', cb);
+        this.formError(message, '/admin/content/navigation/map', cb);
         return;
     }
 
     var sectionMap = JSON.parse(decodeURIComponent(post.map));
     if(sectionMap.length <= 0 || !sectionMap[0].uid) {
-        this.formError(self.ls.get('ERROR_SAVING'), '/admin/content/sections/section_map', cb);
+        this.formError(self.ls.get('ERROR_SAVING'), '/admin/content/navigation/map', cb);
         return;
     }
 
     pb.settings.set('section_map', sectionMap, function(err, data) {
 		if(util.isError(err)) {
-            self.formError(self.ls.get('ERROR_SAVING'), '/admin/content/sections/section_map', cb);
+            self.formError(self.ls.get('ERROR_SAVING'), '/admin/content/navigation/map', cb);
             return;
         }
 
         self.session.success = self.ls.get('NAV_MAP_SAVED');
-        self.redirect('/admin/content/sections/section_map', cb);
+        self.redirect('/admin/content/navigation/map', cb);
     });
 };
 
 //exports
-module.exports = SectionMap;
+module.exports = NavigationMap;

@@ -127,66 +127,66 @@ RequestHandler.CORE_ROUTES = [
     },
     {
     	method: 'get',
-    	path: "/admin/content/sections",
+    	path: "/admin/content/navigation",
     	access_level: ACCESS_EDITOR,
     	auth_required: true,
-    	controller: path.join(DOCUMENT_ROOT, 'controllers', 'admin', 'content', 'sections.js'),
+    	controller: path.join(DOCUMENT_ROOT, 'controllers', 'admin', 'content', 'navigation.js'),
     	content_type: 'text/html'
     },
     {
     	method: 'get',
-    	path: "/admin/content/sections/section_map",
+    	path: "/admin/content/navigation/map",
     	access_level: ACCESS_EDITOR,
     	auth_required: true,
-    	controller: path.join(DOCUMENT_ROOT, 'controllers', 'admin', 'content', 'sections', 'section_map.js'),
+    	controller: path.join(DOCUMENT_ROOT, 'controllers', 'admin', 'content', 'navigation', 'map.js'),
     	content_type: 'text/html'
     },
     {
     	method: 'get',
-    	path: "/admin/content/sections/new_section",
+    	path: "/admin/content/navigation/new_item",
     	access_level: ACCESS_EDITOR,
     	auth_required: true,
-    	controller: path.join(DOCUMENT_ROOT, 'controllers', 'admin', 'content', 'sections', 'new_section.js'),
+    	controller: path.join(DOCUMENT_ROOT, 'controllers', 'admin', 'content', 'navigation', 'new_item.js'),
     	content_type: 'text/html'
     },
     {
     	method: 'post',
-    	path: "/actions/admin/content/sections/new_section",
+    	path: "/actions/admin/content/navigation/new_item",
     	access_level: ACCESS_EDITOR,
     	auth_required: true,
-    	controller: path.join(DOCUMENT_ROOT, 'controllers', 'actions', 'admin', 'content', 'sections', 'new_section.js'),
+    	controller: path.join(DOCUMENT_ROOT, 'controllers', 'actions', 'admin', 'content', 'navigation', 'new_item.js'),
     	content_type: 'text/html'
     },
     {
     	method: 'post',
-    	path: "/actions/admin/content/sections/section_map",
+    	path: "/actions/admin/content/navigation/map",
     	access_level: ACCESS_EDITOR,
     	auth_required: true,
-    	controller: path.join(DOCUMENT_ROOT, 'controllers', 'actions', 'admin', 'content', 'sections', 'section_map.js'),
+    	controller: path.join(DOCUMENT_ROOT, 'controllers', 'actions', 'admin', 'content', 'navigation', 'map.js'),
     	content_type: 'text/html'
     },
     {
     	method: 'get',
-    	path: "/admin/content/sections/edit_section/:id",
+    	path: "/admin/content/navigation/edit_item/:id",
     	access_level: ACCESS_EDITOR,
     	auth_required: true,
-    	controller: path.join(DOCUMENT_ROOT, 'controllers', 'admin', 'content', 'sections', 'edit_section.js'),
+    	controller: path.join(DOCUMENT_ROOT, 'controllers', 'admin', 'content', 'navigation', 'edit_item.js'),
     	content_type: 'text/html'
     },
     {
     	method: 'get',
-    	path: "/actions/admin/content/sections/delete_section/:id",
+    	path: "/actions/admin/content/navigation/delete_item/:id",
     	access_level: ACCESS_EDITOR,
     	auth_required: true,
-    	controller: path.join(DOCUMENT_ROOT, 'controllers', 'actions', 'admin', 'content', 'sections', 'delete_section.js'),
+    	controller: path.join(DOCUMENT_ROOT, 'controllers', 'actions', 'admin', 'content', 'navigation', 'delete_item.js'),
     	content_type: 'text/html'
     },
     {
     	method: 'post',
-    	path: "/actions/admin/content/sections/edit_section/:id",
+    	path: "/actions/admin/content/navigation/edit_item/:id",
     	access_level: ACCESS_EDITOR,
     	auth_required: true,
-    	controller: path.join(DOCUMENT_ROOT, 'controllers', 'actions', 'admin', 'content', 'sections', 'edit_section.js'),
+    	controller: path.join(DOCUMENT_ROOT, 'controllers', 'actions', 'admin', 'content', 'navigation', 'edit_item.js'),
     	content_type: 'text/html'
     },
     {

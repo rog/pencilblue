@@ -16,20 +16,20 @@
 */
 
 /**
- * Parent sections controller
+ * Parent navigation controller
  */
 
-function Sections(){}
+function Navigation(){}
 
 //dependencies
 var BaseController = pb.BaseController;
 
 //inheritance
-util.inherits(Sections, BaseController);
+util.inherits(Navigation, BaseController);
 
-Sections.prototype.render = function(cb) {
-	this.redirect('/admin/content/sections/section_map', cb);
+Navigation.prototype.render = function(cb) {
+	this.redirect('/admin/content/navigation/map', cb);
 };
 
 //exports
-module.exports = Sections;
+module.exports = Navigation;

@@ -16,40 +16,40 @@
 */
 
 /**
- * Interface for editing a section
+ * Interface for editing a navigation item
  */
 
-function EditSection(){}
+function EditNavItem(){}
 
 //dependencies
 var AdminNavigation      = pb.AdminNavigation;
 var SectionService       = pb.SectionService;
-var NewSectionController = require('./new_section.js');
+var NewItemController = require('./new_item.js');
 
 //inheritance
-util.inherits(EditSection, NewSectionController);
+util.inherits(EditNavItem, NewItemController);
 
 //statics
-var SUB_NAV_KEY = 'edit_section';
+var SUB_NAV_KEY = 'edit_nav_item';
 
-EditSection.prototype.render = function(cb) {
+EditNavItem.prototype.render = function(cb) {
 	var self = this;
 	var vars = this.pathVars;
 
 	//make sure an ID was passed
-    if(!vars['id']) {
+    if(!vars.id) {
         this.reqHandler.serve404();
         return;
     }
 
-    EditSection.super_.prototype.render.apply(self, [cb]);
+    EditNavItem.super_.prototype.render.apply(self, [cb]);
 };
 
-EditSection.prototype.getPageName = function() {
+EditNavItem.prototype.getPageName = function() {
 	return this.ls.get('EDIT_NAVIGATION');
 };
 
-EditSection.prototype.getTemplate = function(cb) {
+EditNavItem.prototype.getTemplate = function(cb) {
 	var self = this;
 
 	this.ts.registerLocal('section_id', this.pathVars.id);
@@ -66,16 +66,16 @@ EditSection.prototype.getTemplate = function(cb) {
     		cb(null, '');
     	}
     });
-	this.ts.load('admin/content/sections/edit_section', cb);
+	this.ts.load('admin/content/navigation/edit_item', cb);
 };
 
-EditSection.prototype.getSubnavKey = function() {
+EditNavItem.prototype.getSubnavKey = function() {
     return SUB_NAV_KEY;
-}
+};
 
-EditSection.prototype.getDataTasks = function() {
+EditNavItem.prototype.getDataTasks = function() {
 	var self  = this;
-	var tasks = EditSection.super_.prototype.getDataTasks.apply(self, []);
+	var tasks = EditNavItem.super_.prototype.getDataTasks.apply(self, []);
 	tasks.section = function(callback) {
 		if (self.session.fieldValues) {
 			var navItem = self.session.fieldValues;
@@ -101,20 +101,20 @@ EditSection.prototype.getDataTasks = function() {
 	return tasks;
 };
 
-EditSection.getSubNavItems = function(key, ls, data) {
+EditNavItem.getSubNavItems = function(key, ls, data) {
 	var pills = SectionService.getPillNavOptions();
     pills.unshift(
     {
         name: 'manage_topics',
         title: data.name,
         icon: 'chevron-left',
-        href: '/admin/content/sections/section_map'
+        href: '/admin/content/navigation/map'
     });
     return pills;
 };
 
 //register admin sub-nav
-pb.AdminSubnavService.registerFor(SUB_NAV_KEY, EditSection.getSubNavItems);
+pb.AdminSubnavService.registerFor(SUB_NAV_KEY, EditNavItem.getSubNavItems);
 
 //exports
-module.exports = EditSection;
+module.exports = EditNavItem;

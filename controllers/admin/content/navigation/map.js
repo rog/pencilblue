@@ -19,31 +19,31 @@
  * Interface for editing the navigation
  */
 
-function SectionMap(){}
+function NavigationMap(){}
 
 //dependencies
 var SectionService = pb.SectionService;
 
 //inheritance
-util.inherits(SectionMap, pb.BaseController);
+util.inherits(NavigationMap, pb.BaseController);
 
 //statics
 var SUB_NAV_KEY = 'navigation_map';
 
-SectionMap.prototype.render = function(cb) {
+NavigationMap.prototype.render = function(cb) {
 	var self = this;
 	var dao  = new pb.DAO();
 	dao.query('section', pb.DAO.ANYWHERE).then(function(sections) {
 
 		//when no sections exist redirect to create page
         if(sections.length === 0) {
-            self.redirect('/admin/content/sections/new_section', cb);
+            self.redirect('/admin/content/navigation/new_item', cb);
             return;
         }
 
         pb.settings.get('section_map', function(err, sectionMap) {
             if(sectionMap === null) {
-            	self.redirect('/admin/content/sections/new_section', cb);
+            	self.redirect('/admin/content/navigation/new_item', cb);
                 return;
             }
 
@@ -51,7 +51,7 @@ SectionMap.prototype.render = function(cb) {
                 {
                     navigation: pb.AdminNavigation.get(self.session, ['content', 'sections'], self.ls),
                     pills: pb.AdminSubnavService.get(SUB_NAV_KEY, self.ls, SUB_NAV_KEY),
-                    sections: SectionMap.getOrderedSections(sections, sectionMap),
+                    sections: NavigationMap.getOrderedSections(sections, sectionMap),
                     icons: {
                         container: 'inbox',
                         section: 'th-large',
@@ -64,7 +64,7 @@ SectionMap.prototype.render = function(cb) {
 
             self.setPageName(self.ls.get('NAV_MAP'));
             self.ts.registerLocal('angular_script', angularData);
-	        self.ts.load('admin/content/sections/section_map', function(err, data) {
+	        self.ts.load('admin/content/navigation/map', function(err, data) {
                 var result = '' + data;
                 cb({content: result});
             });
@@ -72,7 +72,7 @@ SectionMap.prototype.render = function(cb) {
     });
 };
 
-SectionMap.getOrderedSections = function(sections, sectionMap) {
+NavigationMap.getOrderedSections = function(sections, sectionMap) {
 
 	var orderedSections = [];
     for(var i = 0; i < sectionMap.length; i++) {
@@ -105,20 +105,20 @@ SectionMap.getOrderedSections = function(sections, sectionMap) {
     return orderedSections;
 };
 
-SectionMap.getSubNavItems = function(key, ls, data) {
+NavigationMap.getSubNavItems = function(key, ls, data) {
 	var pills = SectionService.getPillNavOptions();
 	pills.unshift(
     {
         name: SUB_NAV_KEY,
         title: ls.get('NAV_MAP'),
         icon: 'refresh',
-        href: '/admin/content/sections/section_map'
+        href: '/admin/content/navigation/map'
     });
     return pills;
 };
 
 //register admin sub-nav
-pb.AdminSubnavService.registerFor(SUB_NAV_KEY, SectionMap.getSubNavItems);
+pb.AdminSubnavService.registerFor(SUB_NAV_KEY, NavigationMap.getSubNavItems);
 
 //exports
-module.exports = SectionMap;
+module.exports = NavigationMap;

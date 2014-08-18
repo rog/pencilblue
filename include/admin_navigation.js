@@ -40,7 +40,7 @@ function getDefaultNavigation(ls) {
                     id: 'sections',
                     title: ls.get('NAVIGATION'),
                     icon: 'th-large',
-                    href: '/admin/content/sections/section_map',
+                    href: '/admin/content/navigation/map',
                     access: ACCESS_EDITOR
                 },
                 {

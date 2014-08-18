@@ -16,10 +16,10 @@
 */
 
 /**
- * Interface for creating a section
+ * Interface for creating a navigation item
  */
 
-function NewSection(){
+function NewNavItem(){
 	this.navItem = null;
 }
 
@@ -27,12 +27,12 @@ function NewSection(){
 var SectionService = pb.SectionService;
 
 //inheritance
-util.inherits(NewSection, pb.BaseController);
+util.inherits(NewNavItem, pb.BaseController);
 
 //statics
 var SUB_NAV_KEY = 'new_section';
 
-NewSection.prototype.render = function(cb) {
+NewNavItem.prototype.render = function(cb) {
 	var self = this;
 
 	//gather all data
@@ -54,22 +54,22 @@ NewSection.prototype.render = function(cb) {
 	});
 };
 
-NewSection.prototype.getTemplate = function(cb) {
+NewNavItem.prototype.getTemplate = function(cb) {
 	this.ts.registerLocal('content_type', '{{section.type}}');
 	this.ts.registerLocal('selection_id_field', 'item');
     this.ts.registerLocal('content_search_value', '');
-	this.ts.load('admin/content/sections/new_section', cb);
+	this.ts.load('admin/content/navigation/new_item', cb);
 };
 
-NewSection.prototype.getPageName = function() {
+NewNavItem.prototype.getPageName = function() {
 	return this.ls.get('NEW_NAV_ITEM');
 };
 
-NewSection.prototype.gatherData = function(cb) {
+NewNavItem.prototype.gatherData = function(cb) {
 	async.series(this.getDataTasks(), cb);
 };
 
-NewSection.prototype.getDataTasks = function() {
+NewNavItem.prototype.getDataTasks = function() {
 	var self = this;
 	return {
 
@@ -111,8 +111,9 @@ NewSection.prototype.getDataTasks = function() {
 		},
 
 		section: function(callback) {
+			var navItem;
 			if (self.session.fieldValues) {
-				var navItem = self.session.fieldValues;
+				navItem = self.session.fieldValues;
 				if (util.isArray(navItem.keywords)) {
 					navItem.keywords = navItem.keywords.join(',');
 				}
@@ -120,7 +121,7 @@ NewSection.prototype.getDataTasks = function() {
 				callback(null, navItem);
 			}
 			else {
-				var navItem = {
+				navItem = {
 					type: 'container'
 				};
 				callback(null, navItem);
@@ -135,24 +136,24 @@ NewSection.prototype.getDataTasks = function() {
 	};
 };
 
-NewSection.prototype.getSubnavKey = function() {
+NewNavItem.prototype.getSubnavKey = function() {
     return SUB_NAV_KEY;
-}
+};
 
-NewSection.getSubNavItems = function(key, ls, data) {
+NewNavItem.getSubNavItems = function(key, ls, data) {
 	var pills = SectionService.getPillNavOptions();
     pills.unshift(
     {
         name: 'manage_topics',
         title: ls.get('NEW_NAV_ITEM'),
         icon: 'chevron-left',
-        href: '/admin/content/sections/section_map'
+        href: '/admin/content/navigation/map'
     });
     return pills;
 };
 
 //register admin sub-nav
-pb.AdminSubnavService.registerFor(SUB_NAV_KEY, NewSection.getSubNavItems);
+pb.AdminSubnavService.registerFor(SUB_NAV_KEY, NewNavItem.getSubNavItems);
 
 //exports
-module.exports = NewSection;
+module.exports = NewNavItem;

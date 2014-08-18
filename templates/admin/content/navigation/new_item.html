@@ -3,29 +3,29 @@
     ^error_success^
     ^tmp_admin=elements=sub_nav^
     ^tmp_admin=elements=tab_nav^
-    <form id="edit_section_form" method="post" action="/actions/admin/content/sections/edit_section/^section_id^">
+    <form id="new_section_form" method="post" action="^site_root^/actions/admin/content/navigation/new_item">
         <fieldset>
             <div class="tab-content">
                 <div class="tab-pane active" id="section_settings">
                     <div class="form-group">
                         <label for="type">^loc_TYPE^</label>
-			            <select id="type" name="type" class="form-control" ng-model="section.type">
-			                <option value="{{type.value}}" ng-repeat="type in types" ng-selected="section.type == type.value" ng-cloak>{{type.label}}</option>
-			            </select>
+                        <select id="type" name="type" class="form-control" ng-model="section.type">
+                            <option value="{{type.value}}" ng-repeat="type in types" ng-selected="section.type == type.value" ng-cloak>{{type.label}}</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>^loc_NAME^</label>
-                        <input type="text" id="name" name="name" class="form-control" value="{{section.name}}"></input>
+                        <input type="text" id="name" name="name" class="form-control"></input>
                     </div>
                     <div class="form-group">
                         <label>^loc_DESCRIPTION^</label>
-                        <textarea id="description" name="description" class="form-control">{{section.description}}</textarea>
+                        <textarea id="description" name="description" class="form-control"></textarea>
                     </div>
-                    <div class="form-group" ng-hide="section.type === 'container'">
+                    <div class="form-group"  ng-hide="section.type === 'container'">
                         <label>^loc_PARENT_NAV_ITEM^</label>
                         <select id="parent" name="parent" class="form-control">
                             <option value="">^loc_NONE^</option>
-                            <option value="{{parent._id}}" ng-repeat="parent in parents" ng-selected="section.parent == parent._id" ng-cloak>{{parent.name}}</option>
+                            <option value="{{parent._id}}" ng-repeat="parent in parents" ng-cloak>{{parent.name}}</option>
                         </select>
                     </div>
                     <div id="section_fields" ng-if="section.type === 'section'">
@@ -33,7 +33,7 @@
 	                        <label>^loc_URL_KEY^</label>
 	                        <div class="input-group">
 	                            <span class="input-group-addon">section/</span>
-	                            <input type="text" id="url" name="url" class="form-control" value="{{section.url}}" data-original-url="{{section.url}}"></input>
+	                            <input type="text" id="url" name="url" class="form-control"></input>
                                 <span class="input-group-btn">
                                     <button id="availability_button" class="btn btn-default" type="button" onclick="validateURL()">^loc_CHECK^</button>
                                 </span>
@@ -42,10 +42,10 @@
 	                    <div class="form-group">
 	                        <label>^loc_EDITOR^</label>
 	                        <select id="editor" name="editor" class="form-control">
-	                            <option value="{{editor._id}}" ng-repeat="editor in editors" ng-selected="section.editor == editor._id" ng-cloak>{{editor.name}}</option>
+	                            <option value="{{editor._id}}" ng-repeat="editor in editors" ng-cloak>{{editor.name}}</option>
 	                        </select>
 	                    </div>
-                    </div>
+	                </div>
                     <div id="content_search_wrapper" ng-show="section.type === 'article' || section.type === 'page'" class="form-group">
                         <label>^loc_CONTENT^</label>&nbsp;<i class="fa fa-info-circle" title="" data-placement="bottom" data-toggle="tooltip" data-original-title="^loc_CONTENT_SEARCH_EXPLANATION^" style="cursor: pointer;"></i>
                         ^tmp_admin=elements=content_search^
@@ -61,12 +61,12 @@
                 <div class="tab-pane" id="section_seo">
                     <div class="form-group">
                         <label>^loc_META_KEYWORDS^</label>
-                        <input type="text" id="keywords" name="keywords" class="form-control" placeholder="^loc_META_KEYWORDS_PLACEHOLDER^" value="{{section.keywords}}"></input>
+                        <input type="text" id="keywords" name="keywords" class="form-control" placeholder="^loc_META_KEYWORDS_PLACEHOLDER^"/>
                     </div>
                 </div>
-                <button type="button" class="btn btn-default" onclick="window.location = '^site_root^/admin/content/sections';">
+                <a class="btn btn-default" href="/admin/content/navigation">
                     <i class="fa fa-ban"></i>&nbsp;^loc_CANCEL^
-                </button>
+                </a>
                 <button type="submit" class="btn btn-primary">
                     <i class="fa fa-save"></i>&nbsp;^loc_SAVE^
                 </button>
@@ -74,5 +74,5 @@
         </fieldset>
     </form>
 </div>
-<script type="text/javascript" src="/js/admin/content/sections/edit_section.js"></script>
+<script type="text/javascript" src="/js/admin/content/navigation/new_item.js"></script>
 ^tmp_admin=footer^

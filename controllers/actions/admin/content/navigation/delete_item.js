@@ -16,21 +16,21 @@
 */
 
 /**
- * Deletes a section
+ * Deletes a navigationItem
  */
 
-function DeleteSection(){}
+function DeleteNavItem(){}
 
 //inheritance
-util.inherits(DeleteSection, pb.BaseController);
+util.inherits(DeleteNavItem, pb.BaseController);
 
-DeleteSection.prototype.render = function(cb) {
+DeleteNavItem.prototype.render = function(cb) {
 	var self    = this;
 	var vars    = this.pathVars;
 
 	var message = this.hasRequiredParams(vars, ['id']);
 	if (message) {
-        this.formError(message, '/admin/content/sections/section_map', cb);
+        this.formError(message, '/admin/content/navigation/map', cb);
         return;
     }
 
@@ -38,7 +38,7 @@ DeleteSection.prototype.render = function(cb) {
 	var dao = new pb.DAO();
 	dao.loadById(vars.id, 'section', function(err, section) {
         if(section === null) {
-            self.formError(self.ls.get('ERROR_SAVING'), '/admin/content/sections/section_map', cb);
+            self.formError(self.ls.get('ERROR_SAVING'), '/admin/content/navigation/map', cb);
             return;
         }
 
@@ -46,22 +46,22 @@ DeleteSection.prototype.render = function(cb) {
         var where = {$or: [{_id: ObjectID(vars.id)}, {parent: vars.id}]};
         dao.deleteMatching(where, 'section').then(function(result) {
         	if(result < 1) {
-                self.formError(self.ls.get('ERROR_SAVING'), '/admin/content/sections/section_map', cb);
+                self.formError(self.ls.get('ERROR_SAVING'), '/admin/content/navigation/map', cb);
                 return;
             }
 
             self.session.success = section.name + ' ' + self.ls.get('DELETED');
             self.updateNavMap(vars.id, function(err, result) {
-                self.redirect('/admin/content/sections/section_map', cb);
+                self.redirect('/admin/content/navigation/map', cb);
             });
         });
     });
 };
 
-DeleteSection.prototype.updateNavMap = function(removeID, cb) {
+DeleteNavItem.prototype.updateNavMap = function(removeID, cb) {
 	var service = new pb.SectionService();
 	service.removeFromSectionMap(removeID, cb);
 };
 
 //exports
-module.exports = DeleteSection;
+module.exports = DeleteNavItem;
