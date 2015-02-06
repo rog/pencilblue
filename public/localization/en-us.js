@@ -294,6 +294,7 @@ var loc =
         STANDALONE_TEMPLATE: 'Standalone template',
         HEADLINE: 'Headline',
         SUBHEADING: 'Subheading',
+        THUMBNAIL: 'Thumbnail',
         PUBLISH_DATE: 'Publish date',
         ACTIVE_SECTIONS: 'Drag associated sections here',
         INACTIVE_SECTIONS: 'Drag unassociated sections here',

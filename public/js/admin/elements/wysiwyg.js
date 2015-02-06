@@ -334,7 +334,11 @@ function loadLayoutMediaPreviews(wysId)
 
 function associateMedia(wysId)
 {
-    $('#wysiwyg_modal_' + wysId).modal('hide');
+    if( wysId === 'thumbnail'){
+        $('#thumbnail_modal').modal('hide');
+    } else {
+        $('#wysiwyg_modal_' + wysId).modal('hide');
+    }
     $('.nav-tabs a[href="#media"]').tab('show');
 }
 

@@ -38,15 +38,29 @@
 						<label>^loc_SUBHEADING^</label>
 						<input type="text" class="form-control" ng-model="article.subheading"></input>
 					</div>
-					<div class="form-group" ng-class="{'has-error': !isFieldValid(articleForm.publish_date)}">
-						<label>^loc_PUBLISH_DATE^</label>
-						<div class="input-group">
-							<input type="text" name="publish_date" id="publish_date" class="form-control" ng-model="article.publish_date" required></input>
-							<span class="input-group-btn">
-								<button class="btn btn-default" type="button" ng-click="setPublishDateToNow()">^loc_NOW^</button>
-							</span>
+					<div class="form-inline">
+						<div class="form-group">
+							<div>
+								<label>^loc_THUMBNAIL^: {{ article.thumbnail }}</label>
+								<input type="hidden" id="thumbnail" class="form-control" ng-model="article.thumbnail"></input>
+								<input type="text" id="thumbnail_name" class="form-control" ng-model="article.thumbnail_name" disabled="disabled"></input>
+								<button id="thumb_btn" type="button" class="btn btn-info" data-articleid="{{ article._id }}" onclick="showThumbnailModal()">
+									<i class="fa fa-upload"></i>&nbsp;^loc_UPLOAD_MEDIA^...
+								</button>
+							</div>
 						</div>
-						<div class="form_error" ng-if="!isFieldValid(articleForm.publish_date)">^loc_REQUIRED_FIELD^</div>
+						<div class="form-group">
+							<div>
+								<label>^loc_PUBLISH_DATE^</label>
+								<div class="input-group">
+									<input type="text" name="publish_date" id="publish_date" class="form-control" ng-model="article.publish_date" required></input>
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="button" ng-click="setPublishDateToNow()">^loc_NOW^</button>
+									</span>
+								</div>
+								<div class="form_error" ng-if="!isFieldValid(articleForm.publish_date)">^loc_REQUIRED_FIELD^</div>
+							</div>
+						</div>
 					</div>
 					<div class="form-group">
 						<label>^loc_CONTENT^&nbsp;<span ng-bind="columnInches"></span></label>
@@ -111,4 +125,5 @@
 	</form>
 </div>
 ^tmp_angular=admin=content=articles=article_form^
+^tmp_admin=elements=thumbnail^
 ^tmp_admin=footer^
